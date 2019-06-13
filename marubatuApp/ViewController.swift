@@ -17,51 +17,71 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    //上のラベル
+    //問題表示のラベル
     @IBOutlet weak var questionLabel: UILabel!
     
+    // 表示中の問題を出すときに配列から問題番号を呼び出すときに使用する変数
     var currentQuestionNum: Int = 0
     
-    //問題 Anyはなんの型でもOKってこと 配列と辞書のミックス
-    let questions: [[String:Any]]=[
+    //問題と答えの配列 Anyはなんの型でもOKってこと 配列と辞書のミックス 配列の中に辞書をいれている
+    var questions: [[String:Any]] = []
     
-        [
-            "question": "iPhoneアプリを開発する統合環境はZcodeである",
-            "answer": false
-        ],
-        [
-            "question": "Xcode画面の右側にはユーティリティーズがある",
-            "answer": true
-        ],
-        [
-            "question": "UILabelは文字列を表示する際に利用する",
-            "answer": true
-        ]
-        
-    ]
+     let userDefaults = UserDefaults.standard
+    //    viewDidLoad：インスタンス化された直後（初回に一度のみ）
+    // ***viewWillAppear：画面が表示される直前***
+    //    viewDidAppear：画面が表示された直後
+    //    viewWillDisappear：別の画面に遷移する直前
+    //    viewDidDisappear：別の画面に遷移した直後
     
-    
-//定数question に questions配列の0番目の"question"をよびだしてquestionLabel.textに表示
-    func showQuestion(){
-        let question = questions[currentQuestionNum]
-        if let que = question["question"] as? String{
-           questionLabel.text = que
+//    addviewcontrollerで問題を登録して画面遷移してきたに
+//    キーを頼りに[questions配列] にデータを保存
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //画面が戻って来たときに一旦ひ配列を空にしてから再度読み込む
+        questions = []
+        if userDefaults.object(forKey: "questions") != nil {
+            questions = userDefaults.object(forKey: "questions") as! [[String: Any]]
+        showQuestion()
         }
     }
     
+    
+    
+    //定数question に questions配列の○番目のデータ格納
+    // もし定数questionによびだしてquestionLabel.textに表示
+    // AnyにしたことでStringと定義しないといけない それでas? Stringを使う
+    func showQuestion(){
+        // まだ問題が残っている場合には処理を行う
+        if (questions.count > currentQuestionNum){
+            let question = questions[currentQuestionNum]
+            
+            if let que = question["question"] as? String {
+                questionLabel.text = "\(currentQuestionNum+1)問目: " + que  // 問題文をラベルに表示
+            }
+            
+        } else {
+            // 問題が入っていない時にはエラーメッセージ
+            questionLabel.text = "問題がありません。作成してください。"
+        }
+    }
+    
+    
+    
+    
+    
     // 回答をチェックする関数
     // 正解なら次の問題を表示します
-/*checkAnswerという関数を定義
+    /*checkAnswerという関数を定義
     yourAnserはBool型
-     定数questionにquestions配列の0番目を入れてやる
-     もし*/
+     定数questionにquestions配列に入っているcurrentQuestionNum番目を代入
+     もしquestions配列の○番目のanserが*/
     func checkAnswer(yourAnser: Bool){
         let question = questions[currentQuestionNum]
         
         if let ans = question["answer"] as? Bool{
             
             if yourAnser == ans{
-//                ture正解
+          // ture正解
                 currentQuestionNum += 1
                 showAlert(message: "正解")
                 

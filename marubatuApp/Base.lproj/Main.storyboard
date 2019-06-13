@@ -41,8 +41,8 @@
                                     <action selector="tappYesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Slc-kV-7V4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMw-N4-wT1">
-                                <rect key="frame" x="20" y="44" width="374" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMw-N4-wT1">
+                                <rect key="frame" x="20" y="227" width="374" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="QMJ-dF-tpL"/>
                                 </constraints>
@@ -50,12 +50,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWF-HW-H4Y">
+                                <rect key="frame" x="148" y="44" width="118" height="30"/>
+                                <state key="normal" title="問題を作成する"/>
+                                <connections>
+                                    <segue destination="Ic2-AK-Hlu" kind="show" id="aTA-Bp-cg1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rpV-5I-Vlv" firstAttribute="width" secondItem="q1c-rW-Aet" secondAttribute="width" id="BGb-OB-lTv"/>
                             <constraint firstItem="ZMw-N4-wT1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="CtI-B2-gx3"/>
+                            <constraint firstItem="wWF-HW-H4Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="148" id="Srv-E6-qn1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wWF-HW-H4Y" secondAttribute="trailing" constant="148" id="Zr9-fB-L0z"/>
                             <constraint firstItem="rpV-5I-Vlv" firstAttribute="leading" secondItem="q1c-rW-Aet" secondAttribute="trailing" constant="8" id="mZJ-rk-kAa"/>
+                            <constraint firstItem="wWF-HW-H4Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nX2-HC-Zdg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rpV-5I-Vlv" secondAttribute="bottom" constant="20" id="nfA-El-dJa"/>
                             <constraint firstItem="ZMw-N4-wT1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oOW-Pm-yoh"/>
                             <constraint firstItem="rpV-5I-Vlv" firstAttribute="height" secondItem="q1c-rW-Aet" secondAttribute="height" id="tc9-1T-nRj"/>
@@ -73,6 +83,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-57.971014492753625" y="126.5625"/>
+        </scene>
+        <!--Add View Controller-->
+        <scene sceneID="3Vi-Ve-bnb">
+            <objects>
+                <viewController id="Ic2-AK-Hlu" customClass="addViewController" customModule="marubatuApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nZY-jz-sCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhW-sl-mlo">
+                                <rect key="frame" x="121" y="64" width="172" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="topに戻る"/>
+                                <connections>
+                                    <action selector="tophemodoru:" destination="Ic2-AK-Hlu" eventType="touchUpInside" id="S4k-l2-lHr"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rz5-Ar-0yo">
+                                <rect key="frame" x="20" y="420" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-DU-F4t">
+                                <rect key="frame" x="114" y="486" width="187" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="✗"/>
+                                    <segment title="○"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRV-Te-bcD">
+                                <rect key="frame" x="146" y="757" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="問題をすべて削除"/>
+                                <connections>
+                                    <action selector="allDerete:" destination="Ic2-AK-Hlu" eventType="touchUpInside" id="k4q-DP-EeD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxW-Qo-98A">
+                                <rect key="frame" x="141" y="584" width="132" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="問題を保存"/>
+                                <connections>
+                                    <action selector="hozon:" destination="Ic2-AK-Hlu" eventType="touchUpInside" id="vcc-jM-GZT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="9oP-FP-iKe"/>
+                    </view>
+                    <connections>
+                        <outlet property="maruOrbatu" destination="PEU-DU-F4t" id="0d9-so-f3e"/>
+                        <outlet property="textField" destination="Rz5-Ar-0yo" id="XqM-8y-kyr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rf8-88-oxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702.89855072463774" y="126.5625"/>
         </scene>
     </scenes>
 </document>
