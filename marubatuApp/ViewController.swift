@@ -39,27 +39,36 @@ class ViewController: UIViewController {
 //    キーを頼りに[questions配列] にデータを保存
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         //画面が戻って来たときに一旦配列を空にしてから再度読み込む
         questions = []
+        
+        //userDefaults.object(forKey: “キー名”)はデータを取り出すメソッド。
+        //forKey に userDefaults.setメソッドで設定したキー値をいれて、データを取り出す。
         if userDefaults.object(forKey: "questions") != nil {
+            
+            //もしデータが入っていたらquestions配列にデータを入れる
             questions = userDefaults.object(forKey: "questions") as! [[String: Any]]
+            
         showQuestion()
         }
     }
     
     
     
-    //定数question に questions配列の○番目のデータ格納
-    // もし定数questionによびだしてquestionLabel.textに表示
-    // AnyにしたことでStringと定義しないといけない それでas? Stringを使う
+    //問題を表示
     func showQuestion(){
-        // まだ問題が残っている場合には処理を行う
+        // 問題が残っていたら
         if (questions.count > currentQuestionNum){
-            let question = questions[currentQuestionNum]
             
+            //定数questionにquestions配列に入っているcurrentQuestionNum◯番目を代入
+            let question = questions[currentQuestionNum]
+           
+            // 配列で[String:Any]のAnyにしたことでStringと定義しないといけない それで「as? String」を使う
+            //定数queに問題文を入れる
             if let que = question["question"] as? String {
-                //問題数と問題文をラベルに表示
-              //配列は0から始まるからcurrentQuestionNum+1で1問目から始まる
+              
+              //ラベルに問題数と問題文を表示する。配列は0から始まるからcurrentQuestionNum+1で"1問目"から始まる
                 questionLabel.text = "\(currentQuestionNum+1)問目: " + que
             }
             
@@ -73,9 +82,8 @@ class ViewController: UIViewController {
     
     
     
-    // 回答をチェックする関数 正解なら次の問題を表示します
-    /*checkAnswerという関数を定義 yourAnserはBool型
-     もしquestions配列の○番目のanswerがyouranserと一緒なら問題番号に+1して正解というアラートを表示*/
+    // 回答をチェックする関数
+    //もしquestions配列の○番目のanswerがyouranserと一緒なら問題番号に+1して正解というアラートを表示
     func checkAnswer(yourAnser: Bool){
         
         //定数questionにquestions配列に入っているcurrentQuestionNum◯番目を代入
@@ -83,34 +91,31 @@ class ViewController: UIViewController {
         
         //questonという配列のなかの"answer"を取り出して、ansという定数に格納する
         let ans = question["answer"] as? Bool
-            //正解なら次の問題へ
-            if yourAnser == ans{
-                currentQuestionNum += 1
-                showAlert(message: "正解")
-            }else {
-                //不正解なら次にはいかない
-                showAlert(message: "不正解")
-            }
+        //正解なら次の問題へ
+        if yourAnser == ans{
+            currentQuestionNum += 1
+            showAlert(message: "正解")
+        }else {
+            //不正解なら次にはいかない
+            showAlert(message: "不正解")
+        }
         
-        
-   
-        
-        
-        
-        
-        //問題番号がquestions配列の問題数以上なら0番目(1問目)に戻す
+        //問題番号(0から始まる)が問題数以上になったら0番目(1問目)に戻す
         if currentQuestionNum >= questions.count{
             currentQuestionNum = 0
         }
-        
+        //問題を表示する関数
         showQuestion()
     }
     
+    
         //アラートの関数
     func showAlert(message: String){
+        
         // アラートの型
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let close = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+        
         // 閉じるボタンを表示
         alert.addAction(close)
         present(alert, animated: true, completion: nil)

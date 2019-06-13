@@ -35,60 +35,47 @@ class addViewController: UIViewController,UITextFieldDelegate{
     //問題保存ボタン
     @IBAction func hozon(_ sender: UIButton) {
         
-        //もし問題が空じゃなかったら
-        if textField.text! != "" {
+        //問題が入力されなかったとき
+        if textField.text == "" {
+            showAlert(message: "問題を追加してください")
             
+        //問題が入力されたとき
+        }else {
+            //入力されたものを変数に格納
+            var question = textField.text!
+            
+            //答えが入るBool型の変数
             var marubatsuAnswer: Bool = true
             
-            //もしSegmentedControlで✗が選ばれているとき(インデックスが0番の時)は
-            //変数marubatsuAnswerはfalseが答えになる
+            //もしSegmentedControlで✗(左側)が選ばれているとき(インデックスが0番の時)は
             if maruOrbatu.selectedSegmentIndex == 0 {
+                
+                //答えの変数marubatsuAnswerはfalseが答えになる
                 marubatsuAnswer = false
             } else {
-                //X以外のときはtrue  ◯が選ばれたとき
+                //✗以外のとき(◯が選ばれたとき、インデックス番号が0以外の時)答えはtrueになる
                 marubatsuAnswer = true
             }
             
-            //UserDefaults.standardはUserDefaultsを参照しているということ。データを保存する時やデータを取り出す時など様々な場面で登場する。
-            let userDefaults = UserDefaults.standard
+            //答えが決まったらquestions配列に追加する 問題文はquestion 答えはmarubatsuAnswer に入っている
+            //var questions: [[String: Any]] = []
+            questions.append(["question": question, "answer": marubatsuAnswer])
             
-            //userDefaults.object(forKey: “キー名”)はデータを取り出すメソッド。
-            //引数にsetメソッドで設定した合言葉を設定して、データを取り出す。
-            //もしquestionキーで保存されてるオブジェクトがあったら データが入っていたら
-            if userDefaults.object(forKey: "questions") != nil {
-                //データを読み込んで
-                questions = userDefaults.object(forKey: "questions") as! [[String: Any]]
-                //配列の後ろに追加
-                questions.append([
-                        "question": textField.text!,
-                        "answer": marubatsuAnswer
-                    ])
-                
-                
-                //追加したあとに保存
-                //userDefaults.set(保存したいデータ今回は配列, forKey: “キー名”)
-                //データをセットするメソッド。第一引数に保存したいデータを入れて、第二引数に取り出す時に必要な合言葉を設定。
-                userDefaults.set(questions, forKey: "questions")
-                
-                //問題が保存されたらアラートを表示してtextFieldを空にする
-                showAlert(message: "問題が保存されました")
-                textField.text = ""
-                
-                //何もデータがてされていないとき
-            } else {
-                var questions:[[String: Any]] = []
-                questions.append(
-                    ["question": textField.text!,
-                     "answer": marubatsuAnswer
-                    ])
-                userDefaults.set(questions, forKey: "questions")
-                showAlert(message: "問題が保存されました")
-                textField.text = ""
-            }
-            //配列が空の場合
-        } else {
-            showAlert(message: "問題文を入力してください。")
+            //追加したら入力画面は空にする
+            textField.text = ""
+            
+            //UserDefaults.standardで  変数userDefaults は UserDefaultsのデータを参照しますよということ
+            //データを保存する時やデータを取り出す時など様々な場面で登場する
+             let userDefaults = UserDefaults.standard
+            
+            //問題が追加された配列をユーザーデフォルトにquestionsというキー値で保存する
+            //userDefaults.set(保存したいデータ(今回は配列), forKey: “キー名”)
+            userDefaults.set(questions, forKey: "questions")
+            
+            //シュミレータで動かしたときにデバックエリアでなにが保存されてるか見るために配列をprintしてみる
+            print("保存したデータ\(questions)")
         }
+        
     }
     
     
@@ -96,9 +83,15 @@ class addViewController: UIViewController,UITextFieldDelegate{
     
     //削除ボタン
     @IBAction func allDerete(_ sender: UIButton) {
+        //UserDefaults.standardで  UserDefaultsのデータを参照しますよということ
         let userDefaults = UserDefaults.standard
-        //保存されている問題と解答をすべて削除
+        
+        //.removeObject で全削除
         userDefaults.removeObject(forKey: "questions")
+        
+         //userDefaults.set  で userDefaultsに空の配列を保存する
+        //questions = [] だと ここでは空の配列になるけど前の画面は変わらない
+        userDefaults.set([], forKey: "questions")
         showAlert(message: "削除完了")
     }
 
@@ -120,31 +113,6 @@ class addViewController: UIViewController,UITextFieldDelegate{
     
     
 }
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-
 
 
     
