@@ -8,19 +8,19 @@
 
 import UIKit
 
-//問題と正解が格納される
+//問題と答えの配列
 var questions: [[String: Any]] = []
 
 class addViewController: UIViewController,UITextFieldDelegate{
-//
+    //問題入力
     @IBOutlet weak var textField: UITextField!
-    
+    //◯か✗か
     @IBOutlet weak var maruOrbatu: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // デリゲートを使うため？
+        // デリゲートを使うため
         textField.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -54,13 +54,12 @@ class addViewController: UIViewController,UITextFieldDelegate{
             
             //userDefaults.object(forKey: “キー名”)はデータを取り出すメソッド。
             //引数にsetメソッドで設定した合言葉を設定して、データを取り出す。
-            //もしquestionキーで保存されてるオブジェクトがあったら
+            //もしquestionキーで保存されてるオブジェクトがあったら データが入っていたら
             if userDefaults.object(forKey: "questions") != nil {
                 //データを読み込んで
                 questions = userDefaults.object(forKey: "questions") as! [[String: Any]]
                 //配列の後ろに追加
-                questions.append(
-                    [
+                questions.append([
                         "question": textField.text!,
                         "answer": marubatsuAnswer
                     ])
@@ -75,9 +74,9 @@ class addViewController: UIViewController,UITextFieldDelegate{
                 showAlert(message: "問題が保存されました")
                 textField.text = ""
                 
-                //何も保存されていないとき
+                //何もデータがてされていないとき
             } else {
-                var questions:[[String: Any]] = [] //配列を初期化
+                var questions:[[String: Any]] = []
                 questions.append(
                     ["question": textField.text!,
                      "answer": marubatsuAnswer
@@ -100,11 +99,7 @@ class addViewController: UIViewController,UITextFieldDelegate{
         let userDefaults = UserDefaults.standard
         //保存されている問題と解答をすべて削除
         userDefaults.removeObject(forKey: "questions")
-        /* 問題と解答を削除したので、キーが"questions"のオブジェクトの値がnilになる
-         * -> 読み込まれたときのエラーを回避するために値に空の配列を入れておく
-         */
-        userDefaults.set([], forKey: "questions")
-        showAlert(message: "問題をすべて削除しました。")
+        showAlert(message: "削除完了")
     }
 
     
