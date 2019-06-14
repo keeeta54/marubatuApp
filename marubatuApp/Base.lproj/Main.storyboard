@@ -77,6 +77,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="batuMukouButton" destination="q1c-rW-Aet" id="wVV-w9-DbN"/>
+                        <outlet property="maruMukouButton" destination="rpV-5I-Vlv" id="gzR-4J-4Bv"/>
                         <outlet property="questionLabel" destination="ZMw-N4-wT1" id="8Og-Oj-ZU0"/>
                     </connections>
                 </viewController>

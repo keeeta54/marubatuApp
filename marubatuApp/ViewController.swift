@@ -61,6 +61,10 @@ class ViewController: UIViewController {
         // 問題が残っていたら
         if (questions.count > currentQuestionNum){
             
+            //問題があればボタンを押せるように
+            maruMukouButton.isEnabled = true
+            batuMukouButton.isEnabled = true
+            
             //定数questionにquestions配列に入っているcurrentQuestionNum◯番目を代入
             let question = questions[currentQuestionNum]
            
@@ -75,6 +79,11 @@ class ViewController: UIViewController {
         } else {
             // 問題が入っていない時にはエラーメッセージ
             questionLabel.text = "問題を作成してください"
+            
+            //.isEnabled = falseで無効化 押せなくするということ
+            //.isEnabled = trueで有効化
+            maruMukouButton.isEnabled = false
+            batuMukouButton.isEnabled = false
         }
     }
     
@@ -133,7 +142,11 @@ class ViewController: UIViewController {
     }
     
     
+    //✗を無効化、有効化させるときに使用
+    @IBOutlet weak var batuMukouButton: UIButton!
     
+    //丸を無効化、有効化させるときに使用
+    @IBOutlet weak var maruMukouButton: UIButton!
     
 }
 

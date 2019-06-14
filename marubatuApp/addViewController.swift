@@ -8,8 +8,6 @@
 
 import UIKit
 
-//問題と答えの配列
-var questions: [[String: Any]] = []
 
 class addViewController: UIViewController,UITextFieldDelegate{
     //問題入力
@@ -17,11 +15,23 @@ class addViewController: UIViewController,UITextFieldDelegate{
     //◯か✗か
     @IBOutlet weak var maruOrbatu: UISegmentedControl!
     
+    //問題と答えの配列
+    var questions: [[String: Any]] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // デリゲートを使うため
-        textField.delegate = self
+        textField.delegate = self//画面が読み込まれた時にデータを配列に保存
+        if UserDefaults.standard.object(forKey: "questions") != nil {
+            questions = UserDefaults.standard.object(forKey: "questions") as! [[String : Any]]
+            //チェック
+            print("追加画面ロード時:\(questions)")
+            
+        }
+        
+        
+        
         // Do any additional setup after loading the view.
     }
    
@@ -90,8 +100,9 @@ class addViewController: UIViewController,UITextFieldDelegate{
         userDefaults.removeObject(forKey: "questions")
         
          //userDefaults.set  で userDefaultsに空の配列を保存する
-        //questions = [] だと ここでは空の配列になるけど前の画面は変わらない
         userDefaults.set([], forKey: "questions")
+        questions = []
+        print("配列\(questions)")
         showAlert(message: "削除完了")
     }
 
